@@ -1,20 +1,14 @@
 class Solution {
     fun isAnagram(s: String, t: String): Boolean {
-        val sCharCount = Array(26) { 0 }
-        val tCharCount = Array(26) { 0 }
+        val charCountMap = mutableMapOf<Char, Int>()
 
-        if (s.length != t.length) return false
+        if(s.length != t.length) return false
 
         for (i in s.indices) {
-            sCharCount[s[i] - 'a'] += 1
-            tCharCount[t[i] - 'a'] += 1
+            charCountMap[s[i]] = charCountMap.getOrDefault(s[i], 0) + 1
+            charCountMap[t[i]] = charCountMap.getOrDefault(t[i], 0) - 1
         }
 
-        for (i in 0 until 26) {
-            if (sCharCount[i] != tCharCount[i])
-                return false
-        }
-        
-        return true
+        return charCountMap.all { it.value == 0 }
     }
 }
