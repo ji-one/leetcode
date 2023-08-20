@@ -3,24 +3,20 @@ class Solution {
         nums1.sort()
         nums2.sort()
 
-        val result: ArrayList<Int> = arrayListOf()
+        val result = mutableListOf<Int>()
 
         var i = 0
         var j = 0
 
-        while (true) {
-            if (i >= nums1.size || j >= nums2.size) {
-                break
-            }
-
-            if (nums1[i] == nums2[j]) {
-                result.add(nums1[i])
-                ++i
-                ++j
-            } else if (nums1[i] < nums2[j]) {
-                ++i
-            } else if (nums1[i] > nums2[j]) {
-                ++j
+        while (i < nums1.size && j < nums2.size) {
+            when {
+                nums1[i] == nums2[j] -> {
+                    result.add(nums1[i])
+                    i++
+                    j++
+                }
+                nums1[i] < nums2[j] -> i++
+                else -> j++
             }
         }
         return result.toIntArray()
